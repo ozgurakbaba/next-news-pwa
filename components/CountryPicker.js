@@ -1,27 +1,19 @@
-const COUNTRY_ISO = 'https://raw.githubusercontent.com/ozgurakbaba/next-news-pwa/main/public/assets/county-iso.json'
+import CountryList from '../public/assets/country-iso.json'
 
-const CountryPicker = ({ data }) => {
+function CountryPicker() {
+
+    // console.log(CountryList) // -- testing
     
-    console.log(data)
-
     return(
-        <p>{data}</p>
+        <div>
+            <h3>Country Picker</h3>
+            <select>
+                {CountryList.map((country, i) => {
+                    return <option key={i} onSelect={console.log(country.name)}>{country.name}</option>
+                })}
+            </select>
+        </div>
     )
-}
-
-export async function getStaticProps() {
-    const res = await fetch(COUNTRY_ISO)
-    const data = await res.json()
-
-    if (!data) {
-        return {
-            notFound: true,
-        }
-    }
-
-    return {
-        props: { data },
-    }
 }
 
 export default CountryPicker
